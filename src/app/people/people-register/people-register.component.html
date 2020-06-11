@@ -1,0 +1,82 @@
+<div class="container">
+  <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>{{ isEditing ? 'Edição de' : 'Nova' }} pessoa</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" formControlName="name">
+
+        <app-message [control]="form.get('name')" error="required"
+            text="Informe o nome"></app-message>
+          <app-message [control]="form.get('name')" error="minlength"
+            text="Mínimo de {{ form.get('name').errors?.minlength?.requiredLength }} caracteres"></app-message>
+      </div>
+
+      <div formGroupName="address">
+        <div class="ui-g-12 ui-md-9 ui-fluid">
+          <label>Logradouro</label>
+          <input pInputText type="text" name="street" formControlName="street">
+
+          <app-message [control]="form.get('address.street')" error="required"
+              text="Informe o logradouro"></app-message>
+        </div>
+
+        <div class="ui-g-12 ui-md-3 ui-fluid">
+          <label>Número</label>
+          <input pInputText type="text" name="number" formControlName="number">
+
+          <app-message [control]="form.get('address.number')" error="required"
+            text="Informe o número"></app-message>
+        </div>
+
+        <div class="ui-g-12 ui-md-4 ui-fluid">
+          <label>Complemento</label>
+          <input pInputText type="text" name="complement" formControlName="complement">
+        </div>
+
+        <div class="ui-g-12 ui-md-4 ui-fluid">
+          <label>Bairro</label>
+          <input pInputText type="text" name="neighbourhood" formControlName="neighbourhood">
+
+          <app-message [control]="form.get('address.neighbourhood')" error="required"
+            text="Informe o bairro"></app-message>
+        </div>
+
+        <div class="ui-g-12 ui-md-4 ui-fluid">
+          <label>CEP</label>
+          <p-inputMask mask="99.999-999" name="zipCode" formControlName="zipCode"></p-inputMask>
+
+          <app-message [control]="form.get('address.zipCode')" error="required"
+            text="Informe o CEP"></app-message>
+        </div>
+
+        <div class="ui-g-12 ui-md-6 ui-fluid">
+          <label>Cidade</label>
+          <input pInputText type="text" name="city" formControlName="city">
+
+          <app-message [control]="form.get('address.city')" error="required"
+            text="Informe a cidade"></app-message>
+        </div>
+
+        <div class="ui-g-6 ui-md-6 ui-fluid">
+          <label>Estado</label>
+          <input pInputText type="text" name="state" formControlName="state">
+
+          <app-message [control]="form.get('address.state')" error="required"
+              text="Informe o estado"></app-message>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar" [disabled]="form.invalid"></button>
+        <button pButton type="submit" label="Novo" class="ui-button-info"
+          (click)="new()"></button>
+          <a routerLink="/people">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+</div>

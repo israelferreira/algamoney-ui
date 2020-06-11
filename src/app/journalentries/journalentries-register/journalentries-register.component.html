@@ -1,0 +1,76 @@
+<div class="container">
+  <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>{{ isEditing ? 'Edição de' : 'Novo' }} lançamento</h1>
+      </div>
+
+      <div class="ui-g-12">
+        <p-selectButton name="type" [options]="types"
+          formControlName="entryType"></p-selectButton>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>Vencimento</label>
+        <p-calendar name="dueDate" dateFormat="dd/mm/yy"
+        formControlName="dueDate"></p-calendar>
+
+        <app-message [control]="form.get('dueDate')" error="required"
+          text="Informe a data de vencimento"></app-message>
+      </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>{{ form.get('entryType').value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+        <p-calendar dateFormat="dd/mm/yy" name="paymentDate"
+          formControlName="paymentDate"></p-calendar>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text" name="description"
+          formControlName="description">
+
+        <app-message [control]="form.get('description')" error="required"
+          text="Informe uma descrição"></app-message>
+        <app-message [control]="form.get('description')" error="minlength"
+          text="Mínimo de {{ form.get('description').errors?.minlength?.requiredLength }} caracteres"></app-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>Valor</label>
+        <input pInputText type="text" name="amount" placeholder="0,00"
+          currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+          formControlName="amount">
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="category">
+        <label>Categoria</label>
+        <p-dropdown name="category" [options]="categories"
+          placeholder="Selecione" [autoWidth]="false"
+          formControlName="id"></p-dropdown>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="person">
+        <label>Pessoa</label>
+        <p-dropdown name="person" [options]="people" placeholder="Selecione"
+          [autoWidth]="false" [filter]="true"
+          formControlName="id"></p-dropdown>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Observação</label>
+        <textarea pInputText name="observation" rows="3"
+          formControlName="observation"></textarea>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar" [disabled]="form.invalid"></button>
+        <button pButton type="submit" label="Novo" class="ui-button-info"
+          (click)="new()"></button>
+        <a routerLink="/journalentries">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+</div>

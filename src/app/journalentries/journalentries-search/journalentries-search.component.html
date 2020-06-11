@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="ui-g">
+
+    <form autocomplete="off" (ngSubmit)="search()">
+
+      <div class="ui-g-12">
+        <h1>Lançamentos</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text" name="description" [(ngModel)]="filter.description">
+      </div>
+
+      <div class="ui-g-12">
+        <label style="display: block;">Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
+          name="dueDateFrom" [(ngModel)]="filter.dueDateFrom"></p-calendar>
+
+        <label>até</label>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"
+          name="dueDateTo" [(ngModel)]="filter.dueDateTo"></p-calendar>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="journalEntries" [responsive]="true"
+          [paginator]="true" [rows]="filter.recordsPerPage"
+          [lazy]=true [totalRecords]="totalElements"
+          (onLazyLoad)="onPageChange($event)"
+          #table>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Pessoa</th>
+            <th>Descrição</th>
+            <th class="col-date-header">Vencimento</th>
+            <th class="col-date-header">Pagamento</th>
+            <th class="col-amount-header">Valor</th>
+            <th class="col-actions-header"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-journalEntry>
+          <tr>
+            <td>{{ journalEntry.person }}</td>
+            <td>{{ journalEntry.description }}</td>
+            <td class="col-date">{{ journalEntry.dueDate | date:'dd/MM/yyyy' }}</td>
+            <td class="col-date">{{ journalEntry.paymentDate | date:'dd/MM/yyyy' }}</td>
+            <td class="col-amount" [style.color]="journalEntry.entryType === 'DESPESA' ? 'red' : 'blue'">
+              {{ journalEntry.amount | number:'1.2-2' }}
+            </td>
+            <td class="col-actions">
+              <a pButton icon="fa fa-pencil" pTooltip="Editar"
+                tooltipPosition="top"
+                [routerLink]="['/journalentries', journalEntry.id]"></a>
+
+              <button pButton icon="fa fa-trash"
+                pTooltip="Excluir" tooltipPosition="top"
+                (click)="deleteConfirmation(journalEntry)"
+                [disabled]="!auth.hasAuthority('ROLE_REMOVE_JOURNALENTRY')"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">
+              Nenhum lançamento encontrado
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <a pButton label="Novo Lançamento" routerLink="/journalentries/new"></a>
+    </div>
+  </div>
+
+</div>

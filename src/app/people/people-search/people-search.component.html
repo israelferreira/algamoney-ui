@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="ui-g">
+
+    <form autocomplete="off" (ngSubmit)="search()">
+
+      <div class="ui-g-12">
+        <h1>Pessoas</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="name" [(ngModel)]="filter.name">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="people" [responsive]="true"
+          [paginator]="true" [rows]="filter.recordsPerPage"
+          [lazy]=true [totalRecords]="totalElements"
+          (onLazyLoad)="onPageChange($event)"
+          #table>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nome</th>
+            <th>Cidade</th>
+            <th class="col-state-header">Estado</th>
+            <th class="col-status-header">Status</th>
+            <th class="col-actions-header"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-person>
+          <tr>
+            <td>{{ person.name }}</td>
+            <td>{{ person.address.city }}</td>
+            <td class="col-state">{{ person.address.state }}</td>
+            <td class="col-status">
+              <a href="javascript:;"
+                  [pTooltip]="person.active ? 'Desativar' : 'Ativar'"
+                  tooltipPosition="top"
+                  (click)="changeStatus(person)">
+                {{ person.active ? 'Ativo' : 'Inativo' }}
+              </a>
+            </td>
+            <td class="col-actions">
+              <a pButton icon="fa fa-pencil" pTooltip="Editar"
+                tooltipPosition="top"
+                [routerLink]="['/people', person.id]"></a>
+              <button pButton icon="fa fa-trash"
+                pTooltip="Excluir" tooltipPosition="top"
+                (click)="deleteConfirmation(person)"
+                [disabled]="!auth.hasAuthority('ROLE_REMOVE_PERSON')"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">
+              Nenhuma pessoa encontrada
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <a pButton label="Nova Pessoa" routerLink="/people/new"></a>
+    </div>
+  </div>
+
+</div>

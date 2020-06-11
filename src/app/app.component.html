@@ -1,0 +1,14 @@
+<app-navbar *ngIf="showingNavbar()"></app-navbar>
+
+<router-outlet></router-outlet>
+
+<ng2-toasty></ng2-toasty>
+
+<p-confirmDialog header="Exclusão" icon="fa fa-question-circle" #confirmation>
+  <p-footer>
+    <button type="button" pButton icon="fa fa-check" label="Sim"
+      (click)="confirmation.accept()"></button>
+    <button type="button" pButton icon="fa fa-times" label="Não"
+      (click)="confirmation.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
