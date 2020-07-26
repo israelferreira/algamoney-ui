@@ -7,17 +7,17 @@ import { MoneyHttp } from './money-http';
 @Injectable()
 export class LogoutService {
 
-  tokensRenokeUrl: string;
+  tokensRevokeUrl: string;
 
   constructor(
     private http: MoneyHttp,
     private auth: AuthService
   ) {
-    this.tokensRenokeUrl = `${environment.apiUrl}/tokens/revoke`;
+    this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
   }
 
   logout() {
-    return this.http.delete(this.tokensRenokeUrl, { withCredentials: true })
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
       .toPromise()
       .then(() => {
         this.auth.clearAccessToken();

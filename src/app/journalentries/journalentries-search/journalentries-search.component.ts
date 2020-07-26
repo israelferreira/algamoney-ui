@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
-import { ToastyService } from 'ng2-toasty';
+import { LazyLoadEvent, ConfirmationService, MessageService } from 'primeng/api';
 
 import { JournalentryService, JournalEntryFilter } from '../journalentry.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -24,7 +23,7 @@ export class JournalentriesSearchComponent implements OnInit {
     private journalentryService: JournalentryService,
     private auth: AuthService,
     private errorHandler: ErrorHandlerService,
-    private toasty: ToastyService,
+    private messageService: MessageService,
     private confirmation: ConfirmationService,
     private title: Title) { }
 
@@ -66,7 +65,7 @@ export class JournalentriesSearchComponent implements OnInit {
           this.table.first = 0;
         }
 
-        this.toasty.success('Lançamento excluído com sucesso!');
+        this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' });
       })
       .catch(error => this.errorHandler.handle(error));
   }

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { ToastyService } from 'ng2-toasty';
+import { MessageService } from 'primeng/api';
 
 import { CategoryService } from 'app/categories/category.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -31,7 +31,7 @@ export class JournalentriesRegisterComponent implements OnInit {
     private categoryService: CategoryService,
     private peopleService: PeopleService,
     private journalEntryService: JournalentryService,
-    private toasty: ToastyService,
+    private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
     private route: ActivatedRoute,
     private router: Router,
@@ -99,7 +99,7 @@ export class JournalentriesRegisterComponent implements OnInit {
   addJournalEntry() {
     this.journalEntryService.create(this.form.value)
       .then(addedJournalEntry => {
-        this.toasty.success('Lançamento adicionado com sucesso!');
+        this.messageService.add({ severity: 'success', detail: 'Lançamento adicionado com sucesso!' });
         this.router.navigate(['/journalentries', addedJournalEntry.id]);
       })
       .catch(error => this.errorHandler.handle(error));
@@ -110,7 +110,7 @@ export class JournalentriesRegisterComponent implements OnInit {
       .then(journalEntry => {
         this.form.patchValue(journalEntry);
 
-        this.toasty.success('Lançamento editado com sucesso!');
+        this.messageService.add({ severity: 'success', detail: 'Lançamento editado com sucesso!' });
         this.updateEditTitle();
       })
       .catch(error => this.errorHandler.handle(error));

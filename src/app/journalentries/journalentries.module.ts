@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -32,7 +32,7 @@ import { JournalEntriesRoutingModule } from './journalentries-routing.module';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
-    CurrencyMaskModule,
+    NgxCurrencyModule,
 
     SharedModule,
     JournalEntriesRoutingModule

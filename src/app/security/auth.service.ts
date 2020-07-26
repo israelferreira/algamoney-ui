@@ -34,7 +34,7 @@ export class AuthService {
       })
       .catch(response => {
         if (response.status === 400) {
-          if (response.error === 'invalid_grant') {
+          if (response.error.error === 'invalid_grant') {
             return Promise.reject('Usuário ou senha inválida!');
           }
         }
@@ -45,8 +45,8 @@ export class AuthService {
 
   getNewAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==')
-      .append('Content-Type', 'application/x-www-form-urlencoded');
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = 'grant_type=refresh_token';
 

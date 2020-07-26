@@ -16,8 +16,8 @@ import { SecurityModule } from './security/security.module';
     BrowserModule,
 
     CoreModule,
-    AppRoutingModule,
-    SecurityModule
+    SecurityModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

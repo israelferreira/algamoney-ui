@@ -37,7 +37,6 @@ export function tokenGetter() {
   providers: [
     AuthGuard,
     LogoutService
-  ],
-  exports: []
+  ]
 })
 export class SecurityModule { }

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
-import { ToastyService } from 'ng2-toasty';
+import { LazyLoadEvent, ConfirmationService, MessageService } from 'primeng/api';
 
 import { PeopleService, PeopleFilter } from '../people.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
@@ -24,7 +23,7 @@ export class PeopleSearchComponent implements OnInit {
     private peopleService: PeopleService,
     private auth: AuthService,
     private errorHandler: ErrorHandlerService,
-    private toasty: ToastyService,
+    private messageService: MessageService,
     private confirmation: ConfirmationService,
     private title: Title) { }
 
@@ -66,7 +65,7 @@ export class PeopleSearchComponent implements OnInit {
           this.table.first = 0;
         }
 
-        this.toasty.success('Pessoa excluída com sucesso!');
+        this.messageService.add({ severity: 'success', detail: 'Pessoa excluída com sucesso!' });
       })
       .catch(error => this.errorHandler.handle(error));
   }
@@ -79,7 +78,7 @@ export class PeopleSearchComponent implements OnInit {
       const action = newStatus ? 'ativada' : 'desativada';
 
       people.active = newStatus;
-      this.toasty.success(`Pessoa ${action} com sucesso!`);
+      this.messageService.add({ severity: 'success', detail: `Pessoa ${action} com sucesso!` });
     })
     .catch(error => this.errorHandler.handle(error));
   }

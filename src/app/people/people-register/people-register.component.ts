@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { ToastyService } from 'ng2-toasty';
+import { MessageService } from 'primeng/api';
 
 import { ErrorHandlerService } from 'app/core/error-handler.service';
 import { PeopleService } from 'app/people/people.service';
@@ -23,7 +23,7 @@ export class PeopleRegisterComponent implements OnInit {
 
   constructor(
     private peopleService: PeopleService,
-    private toasty: ToastyService,
+    private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
     private route: ActivatedRoute,
     private router: Router,
@@ -88,7 +88,7 @@ export class PeopleRegisterComponent implements OnInit {
   addPerson(form: FormControl) {
     this.peopleService.create(this.person)
     .then((addedPerson) => {
-      this.toasty.success('Pessoa adicionada com sucesso');
+      this.messageService.add({ severity: 'success', detail: 'Pessoa adicionada com sucesso' });
       this.router.navigate(['/people', addedPerson.id]);
     })
     .catch(error => this.errorHandler.handle(error));
@@ -99,7 +99,7 @@ export class PeopleRegisterComponent implements OnInit {
       .then(person => {
         this.person = person;
 
-        this.toasty.success('Pessoa editado com sucesso!');
+        this.messageService.add({ severity: 'success', detail: 'Pessoa editada com sucesso!' });
         this.updateEditTitle();
       })
       .catch(error => this.errorHandler.handle(error));

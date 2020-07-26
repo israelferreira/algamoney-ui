@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-not-allowed',
@@ -9,8 +9,11 @@ import { Component } from '@angular/core';
   `,
   styles: []
 })
-export class NotAllowedComponent {
+export class NotAllowedComponent implements OnInit {
 
   constructor() { }
+
+  ngOnInit() {
+  }
 
 }

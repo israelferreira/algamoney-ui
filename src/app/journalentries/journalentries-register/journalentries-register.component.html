@@ -47,15 +47,13 @@
       <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="category">
         <label>Categoria</label>
         <p-dropdown name="category" [options]="categories"
-          placeholder="Selecione" [autoWidth]="false"
-          formControlName="id"></p-dropdown>
+          placeholder="Selecione" formControlName="id"></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="person">
         <label>Pessoa</label>
         <p-dropdown name="person" [options]="people" placeholder="Selecione"
-          [autoWidth]="false" [filter]="true"
-          formControlName="id"></p-dropdown>
+          [filter]="true" formControlName="id"></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-fluid">
