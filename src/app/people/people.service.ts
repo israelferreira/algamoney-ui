@@ -1,7 +1,7 @@
 import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Person } from 'app/core/model';
+import { Person, State, City } from 'app/core/model';
 import { environment } from 'environments/environment';
 import { MoneyHttp } from 'app/security/money-http';
 
@@ -15,9 +15,13 @@ export class PeopleFilter {
 export class PeopleService {
 
   peopleUrl: string;
+  citiesUrl: string;
+  statesUrl: string;
 
   constructor(private http: MoneyHttp) {
     this.peopleUrl = `${environment.apiUrl}/people`;
+    this.statesUrl = `${environment.apiUrl}/states`;
+    this.citiesUrl = `${environment.apiUrl}/cities`;
   }
 
   search(filter: PeopleFilter): Promise<any> {
@@ -83,5 +87,18 @@ export class PeopleService {
       .toPromise();
   }
 
+  getAllStates(): Promise<State[]> {
+    return this.http.get<State[]>(this.statesUrl)
+      .toPromise();
+  }
+
+  searchCities(state): Promise<City[]> {
+    const params = new HttpParams()
+      .append('state', state);
+
+    return this.http.get<City[]>(this.citiesUrl, {
+      params
+    }).toPromise();
+  }
 
 }

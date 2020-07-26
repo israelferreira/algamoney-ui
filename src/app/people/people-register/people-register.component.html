@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="form" autocomplete="off" (ngSubmit)="save()">
+  <form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
 
     <div class="ui-g">
       <div class="ui-g-12">
@@ -8,72 +8,95 @@
 
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
-        <input pInputText type="text" name="name" formControlName="name">
+        <input pInputText type="text" name="name"
+          [(ngModel)]="person.name"
+          #name="ngModel" required minlength="5">
 
-        <app-message [control]="form.get('name')" error="required"
+        <app-message [control]="name" error="required"
             text="Informe o nome"></app-message>
-          <app-message [control]="form.get('name')" error="minlength"
-            text="Mínimo de {{ form.get('name').errors?.minlength?.requiredLength }} caracteres"></app-message>
+          <app-message [control]="name" error="minlength"
+            text="Mínimo de {{ name.errors?.minlength?.requiredLength }} caracteres"></app-message>
       </div>
 
-      <div formGroupName="address">
-        <div class="ui-g-12 ui-md-9 ui-fluid">
-          <label>Logradouro</label>
-          <input pInputText type="text" name="street" formControlName="street">
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Logradouro</label>
+        <input pInputText type="text" name="street"
+          [(ngModel)]="person.address.street"
+          #street="ngModel" required>
 
-          <app-message [control]="form.get('address.street')" error="required"
-              text="Informe o logradouro"></app-message>
-        </div>
+        <app-message [control]="street" error="required"
+            text="Informe o logradouro"></app-message>
+      </div>
 
-        <div class="ui-g-12 ui-md-3 ui-fluid">
-          <label>Número</label>
-          <input pInputText type="text" name="number" formControlName="number">
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>Número</label>
+        <input pInputText type="text" name="number"
+          [(ngModel)]="person.address.number"
+          #number="ngModel" required>
 
-          <app-message [control]="form.get('address.number')" error="required"
-            text="Informe o número"></app-message>
-        </div>
+        <app-message [control]="number" error="required"
+           text="Informe o número"></app-message>
+      </div>
 
-        <div class="ui-g-12 ui-md-4 ui-fluid">
-          <label>Complemento</label>
-          <input pInputText type="text" name="complement" formControlName="complement">
-        </div>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Complemento</label>
+        <input pInputText type="text" name="complement"
+          [(ngModel)]="person.address.complement">
+      </div>
 
-        <div class="ui-g-12 ui-md-4 ui-fluid">
-          <label>Bairro</label>
-          <input pInputText type="text" name="neighbourhood" formControlName="neighbourhood">
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Bairro</label>
+         <input pInputText type="text" name="neighbourhood"
+          [(ngModel)]="person.address.neighbourhood"
+          #neighbourhood="ngModel" required>
 
-          <app-message [control]="form.get('address.neighbourhood')" error="required"
-            text="Informe o bairro"></app-message>
-        </div>
+        <app-message [control]="neighbourhood" error="required"
+          text="Informe o bairro"></app-message>
+      </div>
 
-        <div class="ui-g-12 ui-md-4 ui-fluid">
-          <label>CEP</label>
-          <p-inputMask mask="99.999-999" name="zipCode" formControlName="zipCode"></p-inputMask>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>CEP</label>
+        <p-inputMask mask="99.999-999" name="zipCode"
+          [(ngModel)]="person.address.zipCode"
+          #zipCode="ngModel" required></p-inputMask>
 
-          <app-message [control]="form.get('address.zipCode')" error="required"
-            text="Informe o CEP"></app-message>
-        </div>
+        <app-message [control]="zipCode" error="required"
+           text="Informe o CEP"></app-message>
+      </div>
 
-        <div class="ui-g-12 ui-md-6 ui-fluid">
-          <label>Cidade</label>
-          <input pInputText type="text" name="city" formControlName="city">
+      <div class="ui-g-6 ui-md-6 ui-fluid">
+        <label>Estado</label>
+        <p-dropdown placeholder="Selecione..." [autoWidth]="false"
+          [filter]="true" [options]="states"
+          [(ngModel)]="selectedState" name="selectedState"
+          (onChange)="loadCities()"
+          #state="ngModel" required></p-dropdown>
 
-          <app-message [control]="form.get('address.city')" error="required"
-            text="Informe a cidade"></app-message>
-        </div>
+        <app-message [control]="state" error="required"
+          text="Informe o estado"></app-message>
+      </div>
 
-        <div class="ui-g-6 ui-md-6 ui-fluid">
-          <label>Estado</label>
-          <input pInputText type="text" name="state" formControlName="state">
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Cidade</label>
+        <p-dropdown placeholder="Selecione..." [autoWidth]="false"
+            [filter]="true" [options]="cities"
+            [(ngModel)]="person.address.city.id" name="city"
+            #city="ngModel" required
+            [disabled]="!selectedState"></p-dropdown>
 
-          <app-message [control]="form.get('address.state')" error="required"
-              text="Informe o estado"></app-message>
-        </div>
+        <app-message [control]="city" error="required"
+          text="Informe a cidade"></app-message>
+      </div>
+
+      <div class="ui-g-12">
+        <p-panel header="Contatos">
+          <app-people-register-contacts [contacts]="person.contacts"></app-people-register-contacts>
+        </p-panel>
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar" [disabled]="form.invalid"></button>
         <button pButton type="submit" label="Novo" class="ui-button-info"
-          (click)="new()"></button>
+          (click)="new(form)"></button>
           <a routerLink="/people">Voltar para a pesquisa</a>
       </div>
     </div>

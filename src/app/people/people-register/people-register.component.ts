@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -16,7 +16,10 @@ import { Person } from 'app/core/model';
 })
 export class PeopleRegisterComponent implements OnInit {
 
-  form: FormGroup;
+  person = new Person();
+  states: any[];
+  cities: any[];
+  selectedState: number;
 
   constructor(
     private peopleService: PeopleService,
@@ -25,72 +28,76 @@ export class PeopleRegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private title: Title,
-    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.configForm();
-
     this.title.setTitle('Nova pessoa');
 
     const idPerson = this.route.snapshot.params['id'];
+
+    this.loadStates();
 
     if (idPerson) {
       this.loadPerson(idPerson);
     }
   }
 
-  configForm() {
-    this.form = this.formBuilder.group({
-      id: [],
-      active: [true],
-      name: [null, [Validators.required, Validators.minLength(5)]],
-      address: this.formBuilder.group({
-        street: [null, Validators.required],
-        number: [null, Validators.required],
-        complement: [],
-        neighbourhood: [null, Validators.required],
-        zipCode: [null, Validators.required],
-        city: [null, Validators.required],
-        state: [null, Validators.required]
-      })
-    });
+  loadStates() {
+    this.peopleService.getAllStates().then(list => {
+      this.states = list.map(s => ({ label: s.name, value: s.id }));
+    })
+    .catch(error => this.errorHandler.handle(error));
+  }
+
+  loadCities() {
+    this.peopleService.searchCities(this.selectedState).then(list => {
+      this.cities = list.map(c => ({ label: c.name, value: c.id }));
+    })
+    .catch(error => this.errorHandler.handle(error));
   }
 
   get isEditing() {
-    return Boolean(this.form.get('id').value);
+    return Boolean(this.person.id);
   }
 
   loadPerson(id: number) {
     this.peopleService.searchById(id)
       .then(person => {
-        this.form.patchValue(person);
+        this.person = person;
+
+        this.selectedState = (this.person.address.city) ?
+            this.person.address.city.state.id : null;
+
+        if (this.selectedState) {
+          this.loadCities();
+        }
+
         this.updateEditTitle();
       })
       .catch(error => this.errorHandler.handle(error));
   }
 
-  save() {
+  save(form: FormControl) {
     if (this.isEditing) {
-      this.updatePerson();
+      this.updatePerson(form);
     } else {
-      this.addPerson();
+      this.addPerson(form);
     }
   }
 
-  addPerson() {
-    this.peopleService.create(this.form.value)
-    .then(() => {
+  addPerson(form: FormControl) {
+    this.peopleService.create(this.person)
+    .then((addedPerson) => {
       this.toasty.success('Pessoa adicionada com sucesso');
-      this.form.reset();
+      this.router.navigate(['/people', addedPerson.id]);
     })
     .catch(error => this.errorHandler.handle(error));
   }
 
-  updatePerson() {
-    this.peopleService.update(this.form.value)
+  updatePerson(form: FormControl) {
+    this.peopleService.update(this.person)
       .then(person => {
-        this.form.patchValue(person);
+        this.person = person;
 
         this.toasty.success('Pessoa editado com sucesso!');
         this.updateEditTitle();
@@ -98,8 +105,8 @@ export class PeopleRegisterComponent implements OnInit {
       .catch(error => this.errorHandler.handle(error));
   }
 
-  new() {
-    this.form.reset();
+  new(form: FormControl) {
+    form.reset();
 
     setTimeout(function() {
       this.person = new Person();
@@ -109,6 +116,6 @@ export class PeopleRegisterComponent implements OnInit {
   }
 
   updateEditTitle() {
-    this.title.setTitle(`Edição de pessoa: ${this.form.get('name').value}`);
+    this.title.setTitle(`Edição de pessoa: ${this.person.name}`);
   }
 }

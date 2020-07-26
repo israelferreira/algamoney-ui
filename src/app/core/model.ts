@@ -1,11 +1,37 @@
+export class State {
+  id: number;
+  name: string;
+}
+
+export class City {
+  id: number;
+  name: string;
+  state = new State();
+}
 export class Address {
   street: string;
   number: string;
   complement: string;
   neighbourhood: string;
   zipCode: string;
-  city: string;
-  state: string;
+  city = new City();
+}
+
+export class Contact {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+
+  constructor(id?: number,
+    name?: string,
+    email?: string,
+    phone?: string) {
+      this.id = id;
+      this.name = name;
+      this.email = email;
+      this.phone = phone;
+  }
 }
 
 export class Person {
@@ -13,6 +39,7 @@ export class Person {
   name: string;
   active = true;
   address = new Address();
+  contacts = new Array<Contact>();
 }
 
 

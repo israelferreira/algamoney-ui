@@ -8,11 +8,15 @@
   </div>
 
   <ul class="navbar-menu" [hidden]="!showingMenu">
-    <li class="navbar-user">{{ auth.jwtPayload?.name }}</li>
+    <li class="navbar-user">{{ auth.jwtPayload?.user_name }}</li>
+    <li class="navbar-menuitem" routerLinkActive="active"
+      *ngIf="auth.hasAuthority('ROLE_SEARCH_JOURNALENTRY')"><a routerLink="/dashboard">Dashboard</a></li>
     <li class="navbar-menuitem" routerLinkActive="active"
       *ngIf="auth.hasAuthority('ROLE_SEARCH_JOURNALENTRY')"><a routerLink="/journalentries">Lançamentos</a></li>
     <li class="navbar-menuitem" routerLinkActive="active"
       *ngIf="auth.hasAuthority('ROLE_SEARCH_PERSON')"><a routerLink="/people">Pessoas</a></li>
+    <li class="navbar-menuitem" routerLinkActive="active"
+      *ngIf="auth.hasAuthority('ROLE_SEARCH_JOURNALENTRY')"><a routerLink="/reports/journalentries">Relatório</a></li>
     <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
   </ul>
 </nav>

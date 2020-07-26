@@ -19,6 +19,8 @@ import { CategoryService } from 'app/categories/category.service';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { NotAllowedComponent } from './not-allowed/not-allowed.component';
 import { MoneyHttp } from 'app/security/money-http';
+import { DashboardService } from 'app/dashboard/dashboard.service';
+import { ReportsService } from 'app/reports/reports.service';
 
 registerLocaleData(localePt);
 
@@ -48,6 +50,8 @@ registerLocaleData(localePt);
     CategoryService,
     AuthService,
     MoneyHttp,
+    DashboardService,
+    ReportsService,
 
     ConfirmationService,
     JwtHelperService,

@@ -3,22 +3,27 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotAllowedComponent } from './core/not-allowed/not-allowed.component';
 import { PageNotFoundComponent } from './core/page-not-found.component';
-import { PeopleSearchComponent } from './people/people-search/people-search.component';
-import { JournalentriesSearchComponent } from './journalentries/journalentries-search/journalentries-search.component';
 
 const routes: Routes = [
   {
     path: 'journalentries',
-    loadChildren: 'app/journalentries/journalentries.module#JournalentriesModule'
+    loadChildren: () => import('app/journalentries/journalentries.module').then(m => m.JournalentriesModule)
   },
   {
     path: 'people',
-    loadChildren: 'app/people/people.module#PeopleModule'
+    loadChildren: () => import('app/people/people.module').then(m => m.PeopleModule)
   },
-
+  {
+    path: 'dashboard',
+    loadChildren: () => import('app/dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('app/reports/reports.module').then(m => m.ReportsModule)
+  },
   {
     path: '',
-    redirectTo: 'journalentries',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
@@ -28,13 +33,11 @@ const routes: Routes = [
   {
     path: 'page-not-found',
     component: PageNotFoundComponent
-  },
-  /*
-  {
+  }, /*
+ {
     path: '**',
     redirectTo: 'page-not-found'
-  }
-  */
+ }*/
 ];
 
 @NgModule({
