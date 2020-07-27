@@ -4,8 +4,8 @@
       <h1>Relatório de lançamentos por pessoa</h1>
     </div>
 
-    <form #f="ngForm" (ngSubmit)="generate()">
-      <div class="ui-g-12">
+    <form #form="ngForm" (ngSubmit)="generate()">
+      <div class="ui-g-10 report-filter">
         <label>Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" required
           [inputStyle]="{ 'width': '95px'}"
@@ -20,7 +20,7 @@
 
       <div class="ui-g-12">
         <button pButton type="submit" label="Gerar"
-          [disabled]="f.invalid"></button>
+          [disabled]="form.invalid"></button>
       </div>
     </form>
   </div>

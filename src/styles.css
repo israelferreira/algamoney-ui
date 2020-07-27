@@ -14,6 +14,11 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+a.ui-button:hover {
+  background-color: #005b9f;
+  color: white!important;
+}
+
 a, button {
   margin-right: .25em;
 }
@@ -59,13 +64,16 @@ label {
 .col-actions-header {
   width: 100px;
 }
+.col-actions .ui-button {
+  margin: 1px;
+}
 
 .col-state {
-  width: 130px;
+  width: 180px;
 }
 
 .col-state-header {
-  width: 130px;
+  width: 180px;
 }
 
 .col-status {
@@ -75,4 +83,18 @@ label {
 
 .col-status-header {
   width: 90px;
+}
+
+.label-spaced {
+  margin: 6px;
+}
+
+.register-actions .ui-button {
+  margin-right: 5px;
+}
+
+.report-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
