@@ -1,18 +1,18 @@
-## Algamoney-ui
+# Algamoney-ui
 Esse repositório contém os arquivos do **front-end** do projeto Algamoney, construído e ensinado pela [AlgaWorks](https://www.algaworks.com/) no curso **Fullstack Angular e Spring**.<br>O Algamoney é um software para controle e acompanhamento financeiro de receitas e despesas.<br>
 
 [**Veja também o repositório com a API do back-end.**](https://github.com/israelferreira/algamoney-api)
 
 <br>Ele foi desenvolvido com as seguintes tecnologias:
 
- - Back-end: API REST com o framework Spring Boot 2.3 no Java 8
- - Front-end: Single-Page Application (SPA) com Angular 10
- - Biblioteca de componentes PrimeNG na interface de usuário
- - Autenticação e autorização de usuário com OAuth 2 e JWT (JSON Web Token)
- - Banco de dados MySQL 8
- - Flyway (migrações do banco de dados)
- - Jaspersoft JasperReports (relatórios em PDF)
- - Apache Maven (gerenciador de projetos e dependências)
+ - Back-end: **API REST** com o framework **Spring Boot** 2.3 no **Java** 8
+ - Front-end: Single-Page Application (SPA) com **Angular** 10
+ - Biblioteca de componentes **PrimeNG** na interface de usuário
+ - Autenticação e autorização de usuário com **OAuth 2** e **JWT** (JSON Web Token)
+ - Banco de dados **MySQL** 8
+ - **Flyway** (migrações do banco de dados)
+ - Jaspersoft **JasperReports** (relatórios em PDF)
+ - Apache **Maven** (gerenciador de projetos e dependências)
  - Node.js e NPM (Node Package Manager) para controle de dependências e building do front-end.
  
  ## Screenshots
