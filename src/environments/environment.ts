@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/algamoney-api',
 
-  tokenWhitelistedDomains: [ /localhost:8080/ ],
-  tokenBlacklistedDomains: [ /\/oauth\/token/ ]
+  tokenAllowedDomains: [ /localhost:8080/ ],
+  tokenDisallowedDomains: [ /\/oauth\/token/ ]
 };

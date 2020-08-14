@@ -10,7 +10,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { SecurityRoutingModule } from './security-routing.module';
 import { AuthGuard } from './auth.guard';
 import { LogoutService } from './logout.service';
-import { environment } from 'environments/environment';
+import { environment } from '../../environments/environment';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -24,8 +24,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: environment.tokenWhitelistedDomains,
-        blacklistedRoutes: environment.tokenBlacklistedDomains
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedDomains
       }
     }),
     InputTextModule,
