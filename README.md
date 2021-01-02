@@ -33,3 +33,7 @@ Para o front-end funcionar, o [Node.js](https://nodejs.org) e o NPM (Node packag
 Clone esse projeto usando o git, o comando é: `git clone https://github.com/israelferreira/algamoney-ui`.<br>
 Para executar o projeto é necessário acessar o diretório **algamoney-ui** usando o Prompt de Comandos do Node.js e baixar as dependências com o comando `npm install`.<br>
 Para iniciar o servidor de desenvolvimento, use o comando `ng serve`, a URL que deve ser acessada no navegador é [http://localhost:4200/](http://localhost:4200/). <br><br>Para colocar em produção, é necessário configurar o ambiente do projeto. Configure o arquivo src/environments/environment.prod.ts com a URL da API do Spring Boot.<br>Agora, de volta no Angular CLI, use o comando `ng build --prod`,  os arquivos do build ficam armazenados na pasta `dist/`.<br>Para o software algamoney funcionar corretamente, a API REST do back-end precisa estar em execução.
+---
+### Autor
+Feito por Israel Ferreira. 👋🏽 Entre em contato!
+[![Email Badge](https://img.shields.io/badge/-israelferreira5@outlook.com-c14438?style=for-the-badge&color=blue&link=mailto:israelferreira5@outlook.com)](mailto:israelferreira5@outlook.com)
