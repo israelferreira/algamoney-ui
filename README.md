@@ -5,11 +5,11 @@ Esse repositório contém os arquivos do **front-end** do projeto Algamoney, con
 
 <br>Ele foi desenvolvido com as seguintes tecnologias:
 
- - Back-end: **API REST** com o framework **Spring Boot** 2.4 no **Java** 11
+ - Back-end: **API REST** com o framework **Spring Boot** 2.5 no **Java** 16
  - Front-end: Single-Page Application (SPA) com **Angular** 10
  - Biblioteca de componentes **PrimeNG** na interface de usuário
  - Autenticação e autorização de usuário com **OAuth 2** e **JWT** (JSON Web Token)
- - Banco de dados **MySQL** 8
+ - Banco de dados **MariaDB** 10+
  - **Flyway** (migrações do banco de dados)
  - Jaspersoft **JasperReports** (relatórios em PDF)
  - Apache **Maven** (gerenciador de projetos e dependências)
